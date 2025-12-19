@@ -1,6 +1,6 @@
 # ReImagine: Local Batch Image Remixing Pipeline
 
-**ReImagine** is a fully automated, local-first Python pipeline that "reimagines" your image library. It uses a Vision LLM (via LM Studio) to analyze local images and generate detailed prompts, then intelligently queues those prompts into a ComfyUI workflow using optimal SDXL/Pony resolutions based on the original aspect ratio.
+**ReImagine** is a fully automated, local-first Python pipeline that "reimagines" your image library. It uses a Vision LLM (via LM Studio) to analyze local images and generate detailed prompts, then intelligently queues those prompts into a ComfyUI workflow using optimal resolutions based on the original aspect ratio.
 
 ## 🚀 Key Features
 
