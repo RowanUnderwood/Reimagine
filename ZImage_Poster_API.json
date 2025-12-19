@@ -1,0 +1,618 @@
+{
+  "3": {
+    "inputs": {
+      "seed": [
+        "57",
+        0
+      ],
+      "steps": 6,
+      "cfg": 1,
+      "sampler_name": "er_sde",
+      "scheduler": "normal",
+      "denoise": 0.6,
+      "model": [
+        "11",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "61",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "A vintage-style DVD movie poster for \"Walerian Borowczyk's Behind Convent Walls\" (also titled \"Intérieur d'un Couvent\"). The background is a gradient of deep magenta to crimson red. Dominating the center are two figures: a tall, solemn nun in a traditional black habit with a white wimple and veil, standing upright with her eyes closed and head slightly bowed; she holds the hand of a kneeling, nude woman with reddish-brown hair. The kneeling woman looks up at the nun with an expression of devotion or surrender, her left arm bent as if offering herself. Resting against her back is a dark brown violin. The title \"Behind Convent Walls\" is rendered in large, elegant white cursive script to the right of the figures. Above it, smaller text reads \"Walerian Borowczyk's\". Below the central figures, the French title \"INTÉRIEUR D'UN COUVENT\" appears in a bold, white sans-serif font. In the bottom left corner is an \"18\" age rating logo within a circular emblem next to \"CineMasterpiece\". In the bottom right corner are the words \"UNCUT WIDESCREEN\" and a \"DVD\" logo. The overall composition suggests drama, romance, and mystery with strong contrasts between light and shadow on the figures against the vibrant background.",
+      "clip": [
+        "62",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, ugly, bad, text.",
+      "clip": [
+        "62",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "11": {
+    "inputs": {
+      "shift": 7,
+      "model": [
+        "62",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "ModelSamplingAuraFlow"
+    }
+  },
+  "16": {
+    "inputs": {
+      "unet_name": "z_image_turbo_bf16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model"
+    }
+  },
+  "17": {
+    "inputs": {
+      "vae_name": "zImage_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "18": {
+    "inputs": {
+      "clip_name": "qwen_3_4b.safetensors",
+      "type": "lumina2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "52": {
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "53": {
+    "inputs": {
+      "seed": [
+        "57",
+        0
+      ],
+      "steps": 9,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.8,
+      "model": [
+        "56",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "54",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "54": {
+    "inputs": {
+      "pixels": [
+        "59",
+        0
+      ],
+      "vae": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "55": {
+    "inputs": {
+      "samples": [
+        "53",
+        0
+      ],
+      "vae": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "56": {
+    "inputs": {
+      "shift": 7,
+      "model": [
+        "62",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "ModelSamplingAuraFlow"
+    }
+  },
+  "57": {
+    "inputs": {
+      "seed": -1
+    },
+    "class_type": "Seed (rgthree)",
+    "_meta": {
+      "title": "Seed (rgthree)"
+    }
+  },
+  "59": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 2,
+      "image": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "Upscale Image By"
+    }
+  },
+  "60": {
+    "inputs": {
+      "megapixel": "1.0",
+      "aspect_ratio": "7:9 (Modern Portrait)",
+      "divisible_by": "64",
+      "custom_ratio": false,
+      "custom_aspect_ratio": "1:1"
+    },
+    "class_type": "FluxResolutionNode",
+    "_meta": {
+      "title": "🔳  Base Resolution"
+    }
+  },
+  "61": {
+    "inputs": {
+      "width": [
+        "60",
+        0
+      ],
+      "height": [
+        "60",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "🔢  Latent Image"
+    }
+  },
+  "62": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": true,
+        "lora": "Mystic-ZIT-v2.safetensors",
+        "strength": 0.6
+      },
+      "lora_2": {
+        "on": false,
+        "lora": "Z-Image\\(ZIT)_Smallbreasts_v1.safetensors",
+        "strength": 0.7
+      },
+      "lora_3": {
+        "on": true,
+        "lora": "b3tternd3s_v3.safetensors",
+        "strength": 0
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "16",
+        0
+      ],
+      "clip": [
+        "18",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "63": {
+    "inputs": {
+      "lora_name": "PONY_BDetail-R8.safetensors",
+      "strength_model": 1,
+      "strength_clip": 1,
+      "model": [
+        "64",
+        0
+      ],
+      "clip": [
+        "64",
+        1
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "64": {
+    "inputs": {
+      "ckpt_name": "SDXL\\lucentxlPonyByKlaabu_b20.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "65": {
+    "inputs": {
+      "vae_name": "sdxl_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "66": {
+    "inputs": {
+      "text": "score_4, score_5, loli, blurry, furry, large breasts",
+      "clip": [
+        "63",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "67": {
+    "inputs": {
+      "text": "1girl, close up, nipple hair, godrays, side boob, ",
+      "clip": [
+        "63",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "69": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_kzjqu_00019_.png&type=temp&subfolder=&rand=0.26707355807097743"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_kzjqu_00020_.png&type=temp&subfolder=&rand=0.15595787592972565"
+          }
+        ]
+      },
+      "image_a": [
+        "55",
+        0
+      ],
+      "image_b": [
+        "68:71",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "🆚  Image Compare (Detailed Image vs. Color Graded Image)"
+    }
+  },
+  "71": {
+    "inputs": {
+      "text": "The eyes are oval-shaped, symmetrically aligned with the bridge of the nose, and framed by fine, delicate lashes that lie close to the surface of the eye. The upper lid has a smooth, slightly curved contour, while the lower lid is gently taut, creating a natural crease near the inner corner. The pupil is round and centered within the iris, responsive to light—dilating in dim conditions and constricting when exposed to brightness. The sclera (white part) appears clean and free of discoloration or cloudiness. The cornea is transparent with no visible irregularities. Eyelashes are evenly spaced, not too sparse nor overly dense, and the tear film glistens uniformly across the surface without pooling or drying. The surrounding skin is smooth, unbroken, and exhibits natural elasticity. When blinking, the eyelids close fully without leaving gaps or dragging on the lashes. There’s no visible redness, swelling, or discharge, and the eyes remain moist and steady in focus.",
+      "clip": [
+        "62",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "72": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_znijk_00019_.png&type=temp&subfolder=&rand=0.12837782662128494"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_znijk_00020_.png&type=temp&subfolder=&rand=0.7791472376697358"
+          }
+        ]
+      },
+      "image_a": [
+        "55",
+        0
+      ],
+      "image_b": [
+        "70:71",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "🆚  Image Compare (Detailed Image vs. Color Graded Image)"
+    }
+  },
+  "73": {
+    "inputs": {
+      "filename_prefix": "Z-Image",
+      "images": [
+        "70:71",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "💾  Save RAW  Image"
+    }
+  },
+  "74": {
+    "inputs": {
+      "factor": 2,
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "AdjustContrast",
+    "_meta": {
+      "title": "Adjust Contrast"
+    }
+  },
+  "75": {
+    "inputs": {
+      "images": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "68:72": {
+    "inputs": {
+      "model_name": "bbox\\fb-v4.7.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {
+      "title": "UltralyticsDetectorProvider"
+    }
+  },
+  "68:71": {
+    "inputs": {
+      "guide_size": 384,
+      "guide_size_for": false,
+      "max_size": 1024,
+      "seed": 1071565939805310,
+      "steps": 10,
+      "cfg": 0.3,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.25,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.5,
+      "bbox_dilation": 10,
+      "bbox_crop_factor": 3,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "inpaint_model": false,
+      "noise_mask_feather": 20,
+      "tiled_encode": false,
+      "tiled_decode": false,
+      "image": [
+        "55",
+        0
+      ],
+      "model": [
+        "63",
+        0
+      ],
+      "clip": [
+        "63",
+        1
+      ],
+      "vae": [
+        "65",
+        0
+      ],
+      "positive": [
+        "67",
+        0
+      ],
+      "negative": [
+        "67",
+        0
+      ],
+      "bbox_detector": [
+        "68:72",
+        0
+      ]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {
+      "title": "EyesDetailer"
+    }
+  },
+  "70:72": {
+    "inputs": {
+      "model_name": "bbox/Eyeful_v2-Paired.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {
+      "title": "UltralyticsDetectorProvider"
+    }
+  },
+  "70:71": {
+    "inputs": {
+      "guide_size": 384,
+      "guide_size_for": false,
+      "max_size": 1024,
+      "seed": 887130872704086,
+      "steps": 10,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.35,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.5,
+      "bbox_dilation": 10,
+      "bbox_crop_factor": 3,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "inpaint_model": false,
+      "noise_mask_feather": 20,
+      "tiled_encode": false,
+      "tiled_decode": false,
+      "image": [
+        "68:71",
+        0
+      ],
+      "model": [
+        "62",
+        0
+      ],
+      "clip": [
+        "62",
+        1
+      ],
+      "vae": [
+        "17",
+        0
+      ],
+      "positive": [
+        "71",
+        0
+      ],
+      "negative": [
+        "71",
+        0
+      ],
+      "bbox_detector": [
+        "70:72",
+        0
+      ]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {
+      "title": "EyesDetailer"
+    }
+  }
+}
