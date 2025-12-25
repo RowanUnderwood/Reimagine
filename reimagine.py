@@ -6,6 +6,7 @@ import random
 import csv
 import time
 import io
+import shutil  # Added for copying files
 from datetime import datetime
 from tqdm import tqdm
 from PIL import Image
@@ -97,56 +98,53 @@ def get_image_description(image_path):
 
 def get_smart_dimensions(image_path):
     """
-    Calculates SDXL/Pony friendly dimensions based on input aspect ratio.
-    Returns: (width, height, description_string)
+    Calculates SDXL/Pony friendly dimensions.
     """
     with Image.open(image_path) as img:
         w, h = img.size
         ratio = w / h
         
-        # SDXL Preferred Dimensions
-        if ratio > 1.3: 
-            return 1152, 896, "landscape" # ~4:3 Landscape
-        elif ratio < 0.8: 
-            return 832, 1216, "portrait"  # ~2:3 Portrait
-        elif ratio < 0.9:
-            return 896, 1152, "portrait"  # ~3:4 Portrait
+        # --- Landscape ---
+        if ratio > 1.1: 
+            return 1152, 896, "landscape (4:3)"
+        # --- Square ---
+        elif ratio > 0.9:
+            return 1024, 1024, "square (1:1)"
+        # --- Standard Portrait (3:4) ---
+        elif ratio > 0.72:
+            return 896, 1152, "portrait (3:4)"
+        # --- Tall Portrait Limit (2:3) ---
         else:
-            return 1024, 1024, "square"   # 1:1 Square
+            return 832, 1216, "portrait (2:3)"
 
-def send_to_comfy(prompt_text, width, height):
+def send_to_comfy(prompt_text, width, height, output_prefix):
     try:
         with open(WORKFLOW_FILE, 'r') as f:
             workflow = json.load(f)
 
-        # Safety Check: Ensure this is API format (Keys are IDs), not Graph format (List of nodes)
         if isinstance(workflow, list) or "nodes" in workflow:
             print(f"[!] FATAL: {WORKFLOW_FILE} is in 'Saved' format.")
             print("    Please open ComfyUI -> Enable Dev Options -> Save (API Format).")
             return False
 
-        # --- NODE MAPPING FOR NEW JSON ---
-        
-        # Node 6: Positive Prompt (CLIPTextEncode)
+        # Node 6: Positive Prompt
         if "6" in workflow: 
             workflow["6"]["inputs"]["text"] = str(prompt_text)
-        else:
-            print("[!] Warning: Node 6 (Positive Prompt) not found.")
 
-        # Node 57: Global Seed (RGThree Seed)
-        # Note: RGThree nodes handle seeds uniquely, but usually accept 'seed' in API.
+        # Node 57: Global Seed
         if "57" in workflow:
             workflow["57"]["inputs"]["seed"] = random.randint(1, 10**15)
-        else:
-            print("[!] Warning: Node 57 (Seed) not found.")
             
         # Node 61: Empty Latent Image
-        # We bypass the custom resolution node (60) and set W/H directly on the Latent
         if "61" in workflow:
             workflow["61"]["inputs"]["width"] = width
             workflow["61"]["inputs"]["height"] = height
+
+        # Node 73: Save Image Prefix
+        if "73" in workflow:
+            workflow["73"]["inputs"]["filename_prefix"] = output_prefix
         else:
-            print("[!] Warning: Node 61 (Empty Latent) not found.")
+            print("[!] Warning: Node 73 (SaveImage) not found. Filename will not match.")
 
         response = requests.post(COMFY_URL, json={"prompt": workflow}, timeout=15)
         return response.status_code == 200
@@ -159,8 +157,13 @@ def main():
     valid_exts = ('.jpg', '.jpeg', '.png', '.webp')
     files = [f for f in os.listdir('.') if f.lower().endswith(valid_exts)]
     
-    # --- ADDED: Shuffle files for random processing order ---
     random.shuffle(files)
+    
+    # --- SETUP OUTPUT DIRECTORY ---
+    output_dir = "reimagine"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        print(f"Created output directory: {output_dir}")
     
     print(f"--- PRESS CTRL+C TO CANCEL ---")
     print(f"Targeting Primary Instance: {COMFY_URL}")
@@ -183,8 +186,15 @@ def main():
             break
             
         try:
+            # --- COPY ORIGINAL FILE ---
+            # We copy the original file to the 'reimagine' folder immediately
+            try:
+                shutil.copy2(filename, os.path.join(output_dir, filename))
+            except Exception as e:
+                print(f"\n[!] Error copying original file {filename}: {e}")
+
+            # --- PROCESS DESCRIPTION ---
             description = None
-            
             if use_cache and filename in cached_prompts:
                 description = cached_prompts[filename]
             
@@ -195,10 +205,16 @@ def main():
                 print(f"\n[!] Could not get description for {filename}")
                 continue
                 
-            # Get integer dimensions instead of strings
             w, h, ratio_desc = get_smart_dimensions(filename)
             
-            if send_to_comfy(description, w, h):
+            # --- CONSTRUCT OUTPUT PREFIX ---
+            # 1. Strip extension
+            base_name = os.path.splitext(filename)[0]
+            # 2. Add 'reimagine/' to tell ComfyUI to save in a subfolder
+            # 3. Add _reimagined suffix
+            output_prefix = f"{output_dir}/{base_name}_reimagined"
+            
+            if send_to_comfy(description, w, h, output_prefix):
                 log_task(filename, f"{w}x{h} ({ratio_desc})", description)
             else:
                 print(f"\n[!] Failed to queue {filename} to ComfyUI")
