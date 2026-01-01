@@ -1,40 +1,7 @@
 {
-  "3": {
-    "inputs": {
-      "seed": [
-        "57",
-        0
-      ],
-      "steps": 6,
-      "cfg": 1,
-      "sampler_name": "er_sde",
-      "scheduler": "normal",
-      "denoise": 0.6,
-      "model": [
-        "11",
-        0
-      ],
-      "positive": [
-        "6",
-        0
-      ],
-      "negative": [
-        "7",
-        0
-      ],
-      "latent_image": [
-        "61",
-        0
-      ]
-    },
-    "class_type": "KSampler",
-    "_meta": {
-      "title": "KSampler"
-    }
-  },
   "6": {
     "inputs": {
-      "text": "cat",
+      "text": "prompt goes here",
       "clip": [
         "62",
         1
@@ -56,22 +23,6 @@
     "class_type": "CLIPTextEncode",
     "_meta": {
       "title": "CLIP Text Encode (Negative Prompt)"
-    }
-  },
-  "8": {
-    "inputs": {
-      "samples": [
-        "3",
-        0
-      ],
-      "vae": [
-        "17",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
     }
   },
   "11": {
@@ -117,18 +68,6 @@
       "title": "Load CLIP"
     }
   },
-  "52": {
-    "inputs": {
-      "images": [
-        "8",
-        0
-      ]
-    },
-    "class_type": "PreviewImage",
-    "_meta": {
-      "title": "Preview Image"
-    }
-  },
   "53": {
     "inputs": {
       "seed": [
@@ -139,9 +78,9 @@
       "cfg": 1,
       "sampler_name": "euler",
       "scheduler": "simple",
-      "denoise": 0.8,
+      "denoise": 1,
       "model": [
-        "56",
+        "62",
         0
       ],
       "positive": [
@@ -153,29 +92,13 @@
         0
       ],
       "latent_image": [
-        "54",
+        "61",
         0
       ]
     },
     "class_type": "KSampler",
     "_meta": {
       "title": "KSampler"
-    }
-  },
-  "54": {
-    "inputs": {
-      "pixels": [
-        "59",
-        0
-      ],
-      "vae": [
-        "17",
-        0
-      ]
-    },
-    "class_type": "VAEEncode",
-    "_meta": {
-      "title": "VAE Encode"
     }
   },
   "55": {
@@ -194,19 +117,6 @@
       "title": "VAE Decode"
     }
   },
-  "56": {
-    "inputs": {
-      "shift": 7,
-      "model": [
-        "62",
-        0
-      ]
-    },
-    "class_type": "ModelSamplingAuraFlow",
-    "_meta": {
-      "title": "ModelSamplingAuraFlow"
-    }
-  },
   "57": {
     "inputs": {
       "seed": -1
@@ -216,24 +126,10 @@
       "title": "Seed (rgthree)"
     }
   },
-  "59": {
-    "inputs": {
-      "upscale_method": "nearest-exact",
-      "scale_by": 2,
-      "image": [
-        "74",
-        0
-      ]
-    },
-    "class_type": "ImageScaleBy",
-    "_meta": {
-      "title": "Upscale Image By"
-    }
-  },
   "60": {
     "inputs": {
-      "megapixel": "1.0",
-      "aspect_ratio": "7:9 (Modern Portrait)",
+      "megapixel": "2.4",
+      "aspect_ratio": "5:8 (Tall Portrait)",
       "divisible_by": "64",
       "custom_ratio": false,
       "custom_aspect_ratio": "1:1"
@@ -267,17 +163,17 @@
       },
       "lora_1": {
         "on": true,
-        "lora": "Mystic-ZIT-v2.safetensors",
-        "strength": 0.6
+        "lora": "",
+        "strength": 0
       },
       "lora_2": {
-        "on": false,
-        "lora": "Z-Image\\(ZIT)_Smallbreasts_v1.safetensors",
-        "strength": 0.7
+        "on": true,
+        "lora": "",
+        "strength": 0
       },
       "lora_3": {
         "on": true,
-        "lora": "b3tternd3s_v3.safetensors",
+        "lora": "",
         "strength": 0
       },
       "➕ Add Lora": "",
@@ -334,7 +230,7 @@
   },
   "66": {
     "inputs": {
-      "text": "score_4, score_5, loli, blurry, furry, large breasts",
+      "text": "score_4, score_5, loli, blurry, furry",
       "clip": [
         "63",
         1
@@ -365,12 +261,12 @@
           {
             "name": "A",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_kzjqu_00019_.png&type=temp&subfolder=&rand=0.26707355807097743"
+            "url": "/api/view?filename=rgthree.compare._temp_jmqco_00243_.png&type=temp&subfolder=&rand=0.8137867261489425"
           },
           {
             "name": "B",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_kzjqu_00020_.png&type=temp&subfolder=&rand=0.15595787592972565"
+            "url": "/api/view?filename=rgthree.compare._temp_jmqco_00244_.png&type=temp&subfolder=&rand=0.3293196453735856"
           }
         ]
       },
@@ -408,12 +304,12 @@
           {
             "name": "A",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_znijk_00019_.png&type=temp&subfolder=&rand=0.12837782662128494"
+            "url": "/api/view?filename=rgthree.compare._temp_jpvue_00263_.png&type=temp&subfolder=&rand=0.7413603948627979"
           },
           {
             "name": "B",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_znijk_00020_.png&type=temp&subfolder=&rand=0.7791472376697358"
+            "url": "/api/view?filename=rgthree.compare._temp_jpvue_00264_.png&type=temp&subfolder=&rand=0.6297787764509682"
           }
         ]
       },
@@ -444,29 +340,16 @@
       "title": "💾  Save RAW  Image"
     }
   },
-  "74": {
+  "77": {
     "inputs": {
-      "factor": 2,
-      "images": [
-        "8",
-        0
-      ]
+      "aspect": "6:5",
+      "direction": "portrait",
+      "shortside": 768,
+      "batch_size": 1
     },
-    "class_type": "AdjustContrast",
+    "class_type": "Empty Latent by Ratio (WLSH)",
     "_meta": {
-      "title": "Adjust Contrast"
-    }
-  },
-  "75": {
-    "inputs": {
-      "images": [
-        "74",
-        0
-      ]
-    },
-    "class_type": "PreviewImage",
-    "_meta": {
-      "title": "Preview Image"
+      "title": "Empty Latent by Ratio (WLSH)"
     }
   },
   "68:72": {
@@ -483,7 +366,7 @@
       "guide_size": 384,
       "guide_size_for": false,
       "max_size": 1024,
-      "seed": 1071565939805310,
+      "seed": 251467589131714,
       "steps": 10,
       "cfg": 0.3,
       "sampler_name": "euler",
@@ -556,7 +439,7 @@
       "guide_size": 384,
       "guide_size_for": false,
       "max_size": 1024,
-      "seed": 887130872704086,
+      "seed": 1064375341372996,
       "steps": 10,
       "cfg": 1,
       "sampler_name": "euler",
